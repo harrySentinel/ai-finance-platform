@@ -5,7 +5,8 @@ import { BarLoader } from 'react-spinners';
 import TransactionTable from '../_components/transaction-table';
 import AccountChart from '../_components/account-chart';
 
-const AccountsPage = async ({params}) => {
+
+export default async function AccountPage({ params }) {
  const accountData = await getAccountWithTransactions(params.id);
 
  if(!accountData) {
@@ -49,4 +50,3 @@ const AccountsPage = async ({params}) => {
   )
 }
 
-export default AccountsPage;

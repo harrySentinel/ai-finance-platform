@@ -103,7 +103,7 @@ const AddTransactionForm = ({ accounts, categories }) => {
               {...register("amount")}
             />
 
-          {errors.type && (
+          {errors.amount && (
             <p className='text-sm text-red-500'>{errors.amount.message}</p>
           )}
         </div>
