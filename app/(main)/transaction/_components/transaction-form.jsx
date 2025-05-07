@@ -1,6 +1,6 @@
 "use client";
 
-import { createTransaction } from '@/actions/transaction';
+import { createTransaction, updateTransaction } from '@/actions/transaction';
 import { transactionSchema } from '@/app/lib/schema';
 import CreateAccountDrawer from '@/components/create-account-drawer';
 import { Button } from '@/components/ui/button';
@@ -13,15 +13,18 @@ import useFetch from '@/hooks/use-fetch';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { CalendarIcon, Loader2 } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import ReciptScanner from './recipt-scanner';
 
-const AddTransactionForm = ({ accounts, categories }) => {
+const AddTransactionForm = ({ accounts, categories, editMode = false, initialData = null}) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const editId = searchParams.get("edit")
+
   const [scannerActive, setScannerActive] = useState(false);
   
   // Memoize default account id to prevent unnecessary re-renders
@@ -41,7 +44,21 @@ const AddTransactionForm = ({ accounts, categories }) => {
     trigger
   } = useForm({
     resolver: zodResolver(transactionSchema),
-    defaultValues: {
+    defaultValues:
+      editMode && initialData
+      ? { 
+          type: initialData.type,
+          amount: initialData.amount.toString(),
+          description: initialData.description,
+          accountId: initialData.accountId,
+          category: initialData.category,
+          date: new Date(initialData.date),
+          isRecurring: initialData.isRecurring,
+          ...(initialData.recurringInterval && {
+            recurringInterval: initialData.recurringInterval,
+          }),
+      }
+    :{
       type: "EXPENSE",
       amount: "",
       description: "",
@@ -56,7 +73,7 @@ const AddTransactionForm = ({ accounts, categories }) => {
     loading: transactionLoading,
     fn: transactionFn,
     data: transactionResult,
-  } = useFetch(createTransaction);
+  } = useFetch(editMode ? updateTransaction : createTransaction);
 
   const type = watch("type");
   const isRecurring = watch("isRecurring");
@@ -68,16 +85,24 @@ const AddTransactionForm = ({ accounts, categories }) => {
       amount: parseFloat(data.amount),
     };
 
-    transactionFn(formData);
+    if (editMode) {
+      transactionFn(editId, formData);
+    } else {
+      transactionFn(formData);
+    }
   };
 
   useEffect(() => {
     if (transactionResult?.success && !transactionLoading) {
-      toast.success("Transaction created successfully");
+      toast.success(
+        editMode
+            ? "Transaction updated successfully"
+            : "Transaction created successfully"
+          );
       reset();
       router.push(`/account/${transactionResult.data.accountId}`);
     }
-  }, [transactionResult, transactionLoading, reset, router]);
+  }, [transactionResult, transactionLoading, reset, router, editMode]);
   
   const filteredCategories = categories.filter(
     (category) => category.type === type
@@ -177,9 +202,9 @@ const AddTransactionForm = ({ accounts, categories }) => {
   return (
     <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
       {/* AI Receipt Scanner */}
-      <div onClick={() => setScannerActive(true)}>
+      {!editMode && <div onClick={() => setScannerActive(true)}>
         <ReciptScanner onScanComplete={handleScanComplete} />
-      </div>
+      </div>}
 
       {/* Type */}
       <div className='space-y-2 w-full'>
@@ -377,7 +402,16 @@ const AddTransactionForm = ({ accounts, categories }) => {
           className="flex-1" 
           disabled={transactionLoading}
         >
-          Create Transaction
+          {transactionLoading ? (
+            <>
+            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+            {editMode ? "Updating..." : "Creating..."}
+            </>
+          ) : editMode ? (
+             "Update Transaction"
+          ) : (
+            "Create Transaction"
+          )}
         </Button>
       </div>
     </form>
