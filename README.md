@@ -1,6 +1,6 @@
-# 💸 FinScope - AI-Powered Financial Management Platform
+# 💸 Finsight Ai - AI-Powered Financial Management Platform
 
-FinScope is an AI-driven financial management platform designed to help users **track, analyze, and optimize their spending** through a secure, modern, and seamless experience.
+Finsight AI is an AI-driven financial management platform designed to help users **track, analyze, and optimize their spending** through a secure, modern, and seamless experience.
 
 ---
 
