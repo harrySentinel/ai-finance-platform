@@ -46,6 +46,32 @@ Finsight AI is an AI-driven financial management platform designed to help users
 
 ---
 
+## 📬 Environment Variables
+
+To run this project locally, create a `.env` file and add the following environment variables:
+
+| Key                | Description                               |
+|--------------------|-------------------------------------------|
+| `SUPABASE_URL`     | Supabase project URL                      |
+| `SUPABASE_KEY`     | Supabase public anon key                  |
+| `ARCJET_API_KEY`   | Arcjet API key for security               |
+| `INNGEST_API_KEY`  | Inngest API key for background jobs       |
+| `OPENAI_API_KEY`   | Gemini/GPT API key                        |
+| `DATABASE_URL`     | PostgreSQL connection string              |
+| `EMAIL_SERVICE_KEY`| Email service for alerts and reports      |
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! If you find a bug or want to enhance the project, feel free to:
+
+1. **Fork the repository**
+2. **Create your feature branch**
+   ```bash
+   git checkout -b feature-name
+
+
 ## 🛠️ Installation
 
 ```bash
