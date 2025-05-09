@@ -35,16 +35,7 @@ Finsight AI is an AI-driven financial management platform designed to help users
 
 > 
 
----
 
-## 🧑‍💼 Ideal For
-
-- ✅ Showcasing in your **portfolio**
-- ✅ Attracting **full-stack** or **backend-heavy** roles
-- ✅ Demonstrating **modern AI integration** in financial technology
-- ✅ Applying to **startups or companies** building real-time, data-driven platforms
-
----
 
 ## 📬 Environment Variables
 
@@ -75,7 +66,8 @@ Contributions are welcome! If you find a bug or want to enhance the project, fee
 ## 🛠️ Installation
 
 ```bash
-git clone https://github.com/your-username/finscope.git
-cd finscope
+git clone https://github.com/your-username/ai-finance-platform.git
+cd ai-finance-platform
 npm install
 npm run dev
+
