@@ -174,3 +174,39 @@
   background-size: 200% 200%;
   animation: gradientMove 3s ease infinite;
 }
+
+.animated-badge {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.animated-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(90deg, #60a5fa, #3b82f6, #60a5fa);
+  background-size: 200% 200%;
+  animation: borderShine 2s linear infinite;
+  border-radius: 9999px;
+  z-index: -1;
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+}
+
+.animated-badge:hover {
+  box-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6;
+}
+
+@keyframes borderShine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

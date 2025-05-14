@@ -5,6 +5,8 @@ import { Button } from './ui/button';
 import Image from 'next/image';
 import TypingAnimation from './typingAnimation';
 import { useEffect, useRef } from 'react';
+import { Badge } from './ui/badge';
+import { ArrowUpRight } from 'lucide-react';
 
 const HeroSection = () => {
 
@@ -31,6 +33,16 @@ const HeroSection = () => {
     return (
         <div className='pb-20 px-4'>
             <div className='container mx-auto text-center'>
+
+<Badge
+  variant="secondary"
+  className="animated-badge mb-6 text-sm md:text-base px-4 py-1.5 rounded-full border bg-blue-100 text-blue-700 gap-2 inline-flex items-center justify-center shadow-sm"
+>
+  Your Personal Financial Manager
+  <ArrowUpRight className="w-4 h-4" />
+</Badge>
+
+
                 <h1 className='text-5xl md:text-8xl lg:text-[105px] pb-6 gradient-title'>
                     Manage Your Finances <br /> with <TypingAnimation />
                 </h1>
