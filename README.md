@@ -47,7 +47,7 @@ To run this project locally, create a `.env` file and add the following environm
 | `SUPABASE_KEY`     | Supabase public anon key                  |
 | `ARCJET_API_KEY`   | Arcjet API key for security               |
 | `INNGEST_API_KEY`  | Inngest API key for background jobs       |
-| `OPENAI_API_KEY`   | Gemini/GPT API key                        |
+| `GEMINI_API_KEY`   | Gemini/GPT API key                        |
 | `DATABASE_URL`     | PostgreSQL connection string              |
 | `EMAIL_SERVICE_KEY`| Email service for alerts and reports      |
 
